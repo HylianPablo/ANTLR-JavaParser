@@ -1,3 +1,5 @@
+package es.uva.inf.tfg;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -40,23 +42,25 @@ public class EvalVisitor extends MethodBaseVisitor<String> {
             File outF = new File("out");
             FileWriter fw = new FileWriter(outF);
 
-            fw.write("---");
-            fw.write("type: file");
-            fw.write("name: <nombre archivo>");
-            fw.write("locationSpan : {start: [1,0], end:[" + lastLine + ",1]}");
-            fw.write("footerSpan : [0,-1]");
-            fw.write("parsingErrorsDetected : false");
-            fw.write("children:");
-            fw.write("- type : class");
-            fw.write("  name : " + classname);
-            fw.write("  locationSpan : {start: [1,0], end: [" + lastLine + ",1]}");
-            fw.write("  headerSpan : [0, " + headerClassEnd + "]");
-            fw.write("  footerSpan : [" + footerPos + ", " + footerPos + "]");
-            fw.write("  children :");
-            fw.write("  - type : method");
-            fw.write("    name : main");
-            fw.write("    locationSpan : {start: [2,0], end: [" + endMethod + ", " + endMethodChar + "]}");
-            fw.write("    span : [" + initCharMethod + ", " + endCharMethod + "]");
+            System.out.println("OUT --- OK");
+
+            fw.write("---\n");
+            fw.write("type: file\n");
+            fw.write("name: <nombre archivo>\n");
+            fw.write("locationSpan : {start: [1,0], end:[" + lastLine + ",1]}\n");
+            fw.write("footerSpan : [0,-1]\n");
+            fw.write("parsingErrorsDetected : false\n");
+            fw.write("children:\n");
+            fw.write("- type : class\n");
+            fw.write("  name : " + classname+"\n");
+            fw.write("  locationSpan : {start: [1,0], end: [" + lastLine + ",1]}\n");
+            fw.write("  headerSpan : [0, " + headerClassEnd + "]\n");
+            fw.write("  footerSpan : [" + footerPos + ", " + footerPos + "]\n");
+            fw.write("  children :\n");
+            fw.write("  - type : method\n");
+            fw.write("    name : main\n");
+            fw.write("    locationSpan : {start: [2,0], end: [" + endMethod + ", " + endMethodChar + "]}\n");
+            fw.write("    span : [" + initCharMethod + ", " + endCharMethod + "]\n");
             fw.close();
 
         } catch (IOException ex) {

@@ -1,3 +1,5 @@
+package es.uva.inf.tfg;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
@@ -47,7 +49,7 @@ public class SimpleGrammarParser {
 
             ParseTree tree = parser.init();
             EvalVisitor visitor = new EvalVisitor();
-            visitor.visit(tree);
+            visitor.visit(tree); //Debe escribir en un fichero externo y cada vez que tenga que escribir de verdad, lea el buffer
         } catch (IOException ex) {
 
         }

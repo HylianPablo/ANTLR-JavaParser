@@ -1,0 +1,3 @@
+mvn clean install
+
+mvn clean compile exec:java -Dexec.mainClass=es.uva.inf.tfg.SimpleGrammarParser -Dexec.classpathScope=test -e -Dexec.args="shell flag"
