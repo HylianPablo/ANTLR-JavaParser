@@ -26,13 +26,13 @@ public class SimpleGrammarParser {
         String firstEncoding = scanner.nextLine();
         String firstFileOutput = scanner.nextLine();
         System.out.println("OK");
-        parseFile(firstFile);
+        parseFile(firstFile, firstFileOutput);
 
         String secondFile = scanner.nextLine();
         String secondEncoding = scanner.nextLine();
         String secondFileOutput = scanner.nextLine();
         System.out.println("OK");
-        parseFile(secondFile);
+        parseFile(secondFile, secondFileOutput);
 
         String end = scanner.nextLine();
         scanner.close();
@@ -41,7 +41,7 @@ public class SimpleGrammarParser {
         }
     }
 
-    private static void parseFile(String file) {
+    private static void parseFile(String file, String output) {
         try {
             CharStream charstream = CharStreams.fromFileName(file);
             MethodLexer lexer = new MethodLexer(charstream);
@@ -49,6 +49,8 @@ public class SimpleGrammarParser {
 
             ParseTree tree = parser.init();
             EvalVisitor visitor = new EvalVisitor();
+            visitor.setInput(file);
+            visitor.setOutput(output);
             visitor.visit(tree); //Debe escribir en un fichero externo y cada vez que tenga que escribir de verdad, lea el buffer
         } catch (IOException ex) {
 

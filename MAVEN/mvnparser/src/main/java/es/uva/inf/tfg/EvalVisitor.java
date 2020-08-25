@@ -8,7 +8,19 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+
 public class EvalVisitor extends MethodBaseVisitor<String> {
+
+private String input="";
+private String output="";
+
+    public void setInput(String text){
+        input=text;
+    }
+
+    public void setOutput(String text){
+        output=text;
+    }
 
     @Override
     public String visitInit(MethodParser.InitContext ctx) {
@@ -20,14 +32,14 @@ public class EvalVisitor extends MethodBaseVisitor<String> {
             ArrayList<String> sentences = (ArrayList) ctx.method().sentence();
             lastLine += sentences.size();
 
-            int headerClassEnd = 6 + 1 + 5 + 1 + classname.length() + 1 + 1 + 2; // public + space + class + space +
-                                                                                 // classname + space + { + \r\n
+            int headerClassEnd = 6 + 1 + 5 + 1 + classname.length() + 1 + 1 + 2 -1; // public + space + class + space +
+                                                                                 // classname + space + { + \r\n -(empieza en cero)
 
             int endMethod = 2 + sentences.size() + 1;
-            String text = new String(Files.readAllBytes(Paths.get("test.txt")), StandardCharsets.UTF_8);
+            String text = new String(Files.readAllBytes(Paths.get(input)), StandardCharsets.UTF_8);
             int footerPos = text.lastIndexOf("}");
             String[] textLines = text.split("\r\n");
-            int endMethodChar = textLines[endMethod].length() - 1 + 2; // menos 1 pues length genera uno más, +2 \r\n
+            int endMethodChar = textLines[endMethod].length() - 1 + 2 + 4; // menos 1 pues length genera uno más, +2 \r\n, +4 de tabulacion
 
             int initCharMethod = textLines[0].length() + 2;
             int sentenceCharCount = 0;
@@ -38,16 +50,13 @@ public class EvalVisitor extends MethodBaseVisitor<String> {
             }
             int endCharMethod = initCharMethod + endMethodChar + 2 + (textLines[1].length() - 1 + 2)
                     + sentenceCharCount;
-
-            File outF = new File("out");
+            File outF = new File(output);
             FileWriter fw = new FileWriter(outF);
-
-            System.out.println("OUT --- OK");
 
             fw.write("---\n");
             fw.write("type: file\n");
-            fw.write("name: <nombre archivo>\n");
-            fw.write("locationSpan : {start: [1,0], end:[" + lastLine + ",1]}\n");
+            fw.write("name: "+input+"\n");
+            fw.write("locationSpan : {start: [1,0], end: [" + lastLine + ",1]}\n");
             fw.write("footerSpan : [0,-1]\n");
             fw.write("parsingErrorsDetected : false\n");
             fw.write("children:\n");
