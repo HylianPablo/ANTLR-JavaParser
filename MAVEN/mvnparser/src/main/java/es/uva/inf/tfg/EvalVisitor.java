@@ -39,7 +39,7 @@ private String output="";
             String text = new String(Files.readAllBytes(Paths.get(input)), StandardCharsets.UTF_8);
             int footerPos = text.lastIndexOf("}");
             String[] textLines = text.split("\r\n");
-            int endMethodChar = textLines[endMethod].length() - 1 + 2 + 4; // menos 1 pues length genera uno más, +2 \r\n, +4 de tabulacion
+            int endMethodChar = textLines[endMethod].length() + 2 + 4; // +2 \r\n, +4 de tabulacion
 
             int initCharMethod = textLines[0].length() + 2;
             int sentenceCharCount = 0;
@@ -48,7 +48,7 @@ private String output="";
                 sentenceCharCount -= 1;
                 sentenceCharCount += 2;
             }
-            int endCharMethod = initCharMethod + endMethodChar + 2 + (textLines[1].length() - 1 + 2)
+            int endCharMethod = initCharMethod + endMethodChar + 2 + (textLines[1].length())
                     + sentenceCharCount;
             File outF = new File(output);
             FileWriter fw = new FileWriter(outF);
@@ -60,16 +60,16 @@ private String output="";
             fw.write("footerSpan : [0,-1]\n");
             fw.write("parsingErrorsDetected : false\n");
             fw.write("children:\n");
-            fw.write("- type : class\n");
-            fw.write("  name : " + classname+"\n");
-            fw.write("  locationSpan : {start: [1,0], end: [" + lastLine + ",1]}\n");
-            fw.write("  headerSpan : [0, " + headerClassEnd + "]\n");
-            fw.write("  footerSpan : [" + footerPos + ", " + footerPos + "]\n");
-            fw.write("  children :\n");
-            fw.write("  - type : method\n");
-            fw.write("    name : main\n");
-            fw.write("    locationSpan : {start: [2,0], end: [" + endMethod + ", " + endMethodChar + "]}\n");
-            fw.write("    span : [" + initCharMethod + ", " + endCharMethod + "]\n");
+            fw.write("  - type : class\n");
+            fw.write("    name : " + classname+"\n");
+            fw.write("    locationSpan : {start: [1,0], end: [" + lastLine + ",1]}\n");
+            fw.write("    headerSpan : [0, " + headerClassEnd + "]\n");
+            fw.write("    footerSpan : [" + footerPos + ", " + footerPos + "]\n");
+            fw.write("    children :\n");
+            fw.write("    - type : method\n");
+            fw.write("      name : main\n");
+            fw.write("      locationSpan : {start: [2,0], end: [" + endMethod + "," + endMethodChar + "]}\n");
+            fw.write("      span : [" + initCharMethod + ", " + endCharMethod + "]\n");
             fw.close();
 
         } catch (IOException ex) {

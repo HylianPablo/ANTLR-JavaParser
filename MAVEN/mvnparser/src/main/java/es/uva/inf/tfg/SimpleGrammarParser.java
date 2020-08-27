@@ -8,10 +8,6 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-/**
- * This class will read a single file which has only 'x' or 'y'. It will parse
- * it with a grammar.
- */
 public class SimpleGrammarParser {
     public static void main(String args[]) throws Exception {
         try (PrintWriter out = new PrintWriter(args[1])) {
@@ -51,7 +47,7 @@ public class SimpleGrammarParser {
             EvalVisitor visitor = new EvalVisitor();
             visitor.setInput(file);
             visitor.setOutput(output);
-            visitor.visit(tree); //Debe escribir en un fichero externo y cada vez que tenga que escribir de verdad, lea el buffer
+            visitor.visit(tree); 
         } catch (IOException ex) {
 
         }
