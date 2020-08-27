@@ -21,14 +21,14 @@ public class SimpleGrammarParser {
         String firstFile = scanner.nextLine();
         String firstEncoding = scanner.nextLine();
         String firstFileOutput = scanner.nextLine();
-        System.out.println("OK");
         parseFile(firstFile, firstFileOutput);
+        System.out.println("OK");
 
         String secondFile = scanner.nextLine();
         String secondEncoding = scanner.nextLine();
         String secondFileOutput = scanner.nextLine();
-        System.out.println("OK");
         parseFile(secondFile, secondFileOutput);
+        System.out.println("OK");
 
         String end = scanner.nextLine();
         scanner.close();
